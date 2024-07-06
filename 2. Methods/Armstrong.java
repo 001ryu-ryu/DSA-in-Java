@@ -1,4 +1,4 @@
-// check if a 3 digit number is armstrong or not
+// check if a number is armstrong or not
 
 import java.util.Scanner;
 
