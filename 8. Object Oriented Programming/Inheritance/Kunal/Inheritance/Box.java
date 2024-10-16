@@ -1,9 +1,17 @@
-package Kunal;
+package Kunal.Inheritance;
 
 public class Box {
     double l;
     double h;
     double w;
+
+    void greeting() {
+        System.out.println("Hey I am in Box class. Greetings");
+    }
+
+    // public double getL() {
+    //     return l;
+    // }
 
     Box() {
         this.l = -1;
@@ -20,6 +28,7 @@ public class Box {
     }
 
     Box(double l, double h, double w) {
+        System.out.println("Box class constructor");
         this.l = l;
         this.h = h;
         this.w = w;

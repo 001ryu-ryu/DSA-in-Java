@@ -88,6 +88,126 @@ public class LinkedListAdd {
         size--;
         return val;
     }
+
+
+    public int itrSearch(int key) {
+        Node temp = head;
+        int i = 0;
+        while(temp != null) {
+            if(temp.data == key) {
+                return i;
+            }
+            temp = temp.next;
+            i++;
+        }
+        return -1;
+    }
+
+    //recursive search
+
+    public int helper(Node head, int key) {
+        if(head == null) {
+            return -1;
+        }
+        
+        if(head.data == key) {
+            return 0;
+        }
+
+        int idx = helper(head.next, key);
+        if(idx == -1) {
+            return -1;
+        }
+
+        return idx+1;
+    }
+    public int recSearch(int key) {
+        return helper(head, key);
+    }
+
+    //reverse a linked list
+    public void reverse() {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
+    //remove nth from end
+    public void deleteNthFromEnd(int n) {
+        //calculate size
+        int sz = 0;
+        Node temp = head;
+        while(temp != null) {
+            temp = temp.next;
+            sz++;
+        }
+        
+        if(n == sz) {
+            head = head.next;
+            return;
+        }
+
+        //sz-n
+        int i = 1;
+        int iToFInd = sz-n;
+        Node prev = head;
+        while(i < iToFInd) {
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next;
+        return;
+    }
+
+    //check palindrome
+    public Node findMid(Node head) { //helper
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next; //+1
+            fast = fast.next.next; //+2
+        }
+        return slow; //slow is my midNode
+    }
+    public boolean checkPalindrome() {
+        if(head == null || head.next == null) {
+            return true;
+        }
+        //step1 - find mid
+        Node midNode = findMid(head);
+
+        //step2 - reverse 2nd half
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev; //right half head
+        Node left = head;
+
+        //step3 - check left half & right half
+        while(right != null) {
+            if(left.data != right.data) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
     public static void main(String[] args) {
         LinkedListAdd ll = new LinkedListAdd();
         
@@ -98,11 +218,15 @@ public class LinkedListAdd {
 
         ll.add(2, 9);
  
-        ll.print();
+        
 
-        System.out.println(ll.size);
+        
 
-        ll.removeFirst();
+        
+        // System.out.println(ll.recSearch(9));
+        // System.out.println(ll.itrSearch(10));
+
+        ll.reverse();
         ll.print();
         
     }
